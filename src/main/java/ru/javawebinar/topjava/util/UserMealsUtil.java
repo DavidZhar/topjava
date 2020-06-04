@@ -57,7 +57,6 @@ public class UserMealsUtil {
                 LocalDate day = meal.getDateTime().toLocalDate();
 
 
-
                 UserMealWithExcess mealWithExcess = new UserMealWithExcess(meal.getDateTime(), meal.getDescription(),
                         meal.getCalories(), b);
                 res.put(mealWithExcess, day);

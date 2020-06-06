@@ -3,8 +3,19 @@ package ru.javawebinar.topjava.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Meal {
+    private AtomicInteger id;
+
+    public AtomicInteger getId() {
+        return id;
+    }
+
+    public void setId(AtomicInteger id) {
+        this.id = id;
+    }
+
     private final LocalDateTime dateTime;
 
     private final String description;

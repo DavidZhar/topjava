@@ -1,3 +1,9 @@
+<%@ page import="java.util.List" %>
+<%@ page import="ru.javawebinar.topjava.model.MealTo" %>
+<%@ page import="java.io.IOException" %>
+<%@ page import="ru.javawebinar.topjava.web.MealServlet" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: davidza
@@ -11,7 +17,29 @@
     <title>Meals</title>
 </head>
 <body>
-MEALS
+<% response.getWriter().println("test1<br>"); %>
+test2 <br>
+<%="test3<br>" %>
+<%=MealServlet.meals.get(0).toString() %>
+<br>
+<%=(String) request.getAttribute("meals") %>
+
+<p><%
+
+
+%></p>
+
+<%--<%--%>
+<%--    List<MealTo> meals = (List<MealTo>) request.getAttribute("meals");--%>
+<%--    MealServlet.meals.forEach(meal -> {--%>
+<%--        try {--%>
+<%--            out.(meal.toString());--%>
+<%--            out.--%>
+<%--        } catch (IOException e) {--%>
+<%--            e.printStackTrace();--%>
+<%--        }--%>
+<%--    }); %>--%>
+
 
 </body>
 </html>

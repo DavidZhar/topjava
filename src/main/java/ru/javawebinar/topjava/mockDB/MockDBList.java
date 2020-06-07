@@ -5,12 +5,10 @@ import ru.javawebinar.topjava.model.Meal;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class MockDB {
+public class MockDBList {
     private static List<Meal> meals = new ArrayList<>();
     static {
        /* meals = Arrays.asList(
@@ -29,7 +27,7 @@ public class MockDB {
         meals.add(new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 10, 0), "Завтрак", 1000));
         meals.add(new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 13, 0), "Обед", 500));
         meals.add(new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 20, 0), "Ужин", 410));
-        meals.forEach(meal -> meal.setId(new AtomicInteger(meals.indexOf(meal)+1)));
+        meals.forEach(meal -> meal.setId(meals.indexOf(meal)+1));
     }
 
     public static List<Meal> getMeals() {
@@ -37,6 +35,6 @@ public class MockDB {
     }
 
     public static void setMeals(List<Meal> meals) {
-        MockDB.meals = meals;
+        MockDBList.meals = meals;
     }
 }

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime" %>
-
+<% request.setCharacterEncoding("UTF-8"); %>
 <%--
   Created by IntelliJ IDEA.
   User: davidza
@@ -16,12 +16,21 @@
         table {
             border-collapse: separate; /* Способ отображения границы */
             width: 100%; /* Ширина таблицы */
+            counter-reset: schetchik;
         }
         td {
             padding: 12px; /* Поля вокруг текста */
             text-align: left;
         }
-        tr:nth-child(even) {background-color: #f2f2f2;}
+        /*tr {*/
+        /*    counter-increment: schetchik;*/
+        /*}*/
+        /*tr:before{*/
+        /*    content: counter(schetchik);*/
+        /*}*/
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
         .myButton {
             background-color:#44c767;
             border-radius:28px;
@@ -94,6 +103,7 @@
     </tr>
 </c:forEach>
 </table>
-<%--<form method="post">add</form>--%>
+<br>
+<a href="meals?action=add" class="myButton">Add</a>
 </body>
 </html>

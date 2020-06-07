@@ -14,8 +14,8 @@ public class MealListDAO implements MealDAO{
     }
 
     @Override
-    public void update(int id, Meal meal) {
-        MockDBList.getMeals().set(id-1, meal);
+    public void update(Meal meal) {
+        MockDBList.getMeals().set(meal.getId()-1, meal);
     }
 
     @Override

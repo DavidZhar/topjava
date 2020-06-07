@@ -17,7 +17,7 @@ public class MealMapDao implements MealDAO {
     }
 
     @Override
-    public void update(int id, Meal meal) {
+    public void update(Meal meal) {
         MockDBMap.getMeals().put(meal.getId(), meal);
     }
 

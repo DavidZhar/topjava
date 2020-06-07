@@ -33,10 +33,13 @@ public class MealServlet extends HttpServlet {
         LocalDateTime dateTime = LocalDateTime.parse(request.getParameter("dateTime").replaceAll("T", " "), formatter);
         meal.setDateTime(dateTime);
         meal.setCalories(Integer.parseInt(request.getParameter("calories")));
-        String mealId = request.getParameter("id");
+        String mealId = request.getParameter("mealId");
 
         if (mealId==null||mealId.isEmpty()) mealDAO.add(meal);
-        else mealDAO.update(Integer.parseInt(mealId), meal);
+        else {
+            meal.setId(Integer.parseInt(mealId));
+            mealDAO.update(meal);
+        }
 
         List<MealTo> meals = MealsUtil.filteredByStreams(mealDAO.getAll(), LocalTime.MIN, LocalTime.MAX, 2000);
         request.setAttribute("meals", meals);
@@ -50,23 +53,23 @@ public class MealServlet extends HttpServlet {
         String action = request.getParameter("action");
         String forward = "";
 
-        if (action!=null&&action.equals("delete")){
-            int userId = Integer.parseInt(request.getParameter("mealId"));
-            dao.delete(userId);
+        if (action==null||action.equals("delete")){
+            if (action != null) {
+                int userId = Integer.parseInt(request.getParameter("mealId"));
+                dao.delete(userId);
+            }
             forward = "/meals.jsp";
-        } else if (action!=null&&action.equals("edit")){
+            List<MealTo> meals = MealsUtil.filteredByStreams(dao.getAll(), LocalTime.MIN, LocalTime.MAX, 2000);
+            request.setAttribute("meals", meals);
+        } else if (action.equals("edit")){
             int userId = Integer.parseInt(request.getParameter("mealId"));
             Meal meal = dao.get(userId);
             request.setAttribute("meal", meal);
             forward = "/edit.jsp";
-        } else if (action!=null&&action.equals("add")){
+        } else if (action.equals("add")){
             forward = "/edit.jsp";
-        } else {
-            forward = "/meals.jsp";
         }
 
-        List<MealTo> meals = MealsUtil.filteredByStreams(dao.getAll(), LocalTime.MIN, LocalTime.MAX, 2000);
-        request.setAttribute("meals", meals);
         request.getRequestDispatcher(forward).forward(request, response);
 //        response.sendRedirect("meals.jsp");
     }

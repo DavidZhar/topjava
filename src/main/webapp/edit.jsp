@@ -53,6 +53,7 @@
 </head>
 <body>
 <form method="POST" action='meals' name="add">
+    <input type="hidden" name="mealId" value="${meal.id}">
     Description : <br/>
     <label>
         <input type="text" name="description"

@@ -87,13 +87,8 @@
         <th style="padding-left: 12px; padding-top: 12px; padding-bottom: 12px; background-color: forestgreen; color: white;"></th>
     </tr>
 <c:forEach var="meal" items="${meals}">
-    <c:if test="${meal.excess}">
-        <tr style="color: red;">
-    </c:if>
-    <c:if test="${!meal.excess}">
-        <tr style="color: green;">
-    </c:if>
-        <td>${meal.id}</td>
+    <tr style="color:${meal.excess ? 'red' : 'green'}">
+    <td>${meal.id}</td>
         <javatime:format pattern="dd-MM-yyyy HH:mm" value="${meal.dateTime}" var="date"/>
         <td>${date}</td>
         <td>${meal.description}</td>

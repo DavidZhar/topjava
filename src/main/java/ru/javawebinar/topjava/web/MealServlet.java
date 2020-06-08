@@ -1,10 +1,8 @@
 package ru.javawebinar.topjava.web;
 
 import org.slf4j.Logger;
+import ru.javawebinar.topjava.dao.MealConcMapDao;
 import ru.javawebinar.topjava.dao.MealDAO;
-import ru.javawebinar.topjava.dao.MealListDAO;
-import ru.javawebinar.topjava.dao.MealMapDao;
-import ru.javawebinar.topjava.mockDB.MockDBList;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.MealTo;
 import ru.javawebinar.topjava.util.MealsUtil;
@@ -25,7 +23,7 @@ public class MealServlet extends HttpServlet {
     private static final Logger log = getLogger(UserServlet.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        MealDAO mealDAO = new MealMapDao();
+        MealDAO mealDAO = new MealConcMapDao();
         log.debug("post");
         Meal meal = new Meal();
         meal.setDescription(request.getParameter("description"));
@@ -35,7 +33,7 @@ public class MealServlet extends HttpServlet {
         meal.setCalories(Integer.parseInt(request.getParameter("calories")));
         String mealId = request.getParameter("mealId");
 
-        if (mealId==null||mealId.isEmpty()) mealDAO.add(meal);
+        if (mealId == null || mealId.isEmpty()) mealDAO.add(meal);
         else {
             meal.setId(Integer.parseInt(mealId));
             mealDAO.update(meal);
@@ -49,11 +47,11 @@ public class MealServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.debug("redirect to meals");
 
-        MealDAO dao = new MealMapDao();
+        MealDAO dao = new MealConcMapDao();
         String action = request.getParameter("action");
         String forward = "";
 
-        if (action==null||action.equals("delete")){
+        if (action == null || action.equals("delete")) {
             if (action != null) {
                 int userId = Integer.parseInt(request.getParameter("mealId"));
                 dao.delete(userId);
@@ -61,12 +59,12 @@ public class MealServlet extends HttpServlet {
             forward = "/meals.jsp";
             List<MealTo> meals = MealsUtil.filteredByStreams(dao.getAll(), LocalTime.MIN, LocalTime.MAX, 2000);
             request.setAttribute("meals", meals);
-        } else if (action.equals("edit")){
+        } else if (action.equals("edit")) {
             int userId = Integer.parseInt(request.getParameter("mealId"));
             Meal meal = dao.get(userId);
             request.setAttribute("meal", meal);
             forward = "/edit.jsp";
-        } else if (action.equals("add")){
+        } else if (action.equals("add")) {
             forward = "/edit.jsp";
         }
 

@@ -25,30 +25,34 @@ public class MealRestController {
 
     public List<MealTo> getAll() {
         log.info("getAll");
-        return MealsUtil.getTos(service.getAll(), MealsUtil.DEFAULT_CALORIES_PER_DAY);
+        int userId = authUserId();
+        return MealsUtil.getTos(service.getAll(userId), SecurityUtil.authUserCaloriesPerDay());
     }
 
     public Meal get(int id) {
         log.info("get {}", id);
-
-        return service.get(id);
+        int userId = authUserId();
+        return service.get(id, userId);
     }
 
     public Meal create(Meal meal) {
         log.info("create {}", meal);
-        return service.create(meal);
+        int userId = authUserId();
+        meal.setUserID(userId);
+        return service.create(meal, userId);
     }
 
     public void delete(int id) {
-        log.info("create {}", id);
-
-        service.delete(id);
+        log.info("delete {}", id);
+        int userId = authUserId();
+        service.delete(id, userId);
     }
 
-    public void update(Meal meal, int id) {
-        log.info("update {} with id={}", meal, id);
-
-        service.update(meal);
+    public void update(Meal meal) {
+        log.info("update {} with id={}", meal, meal.getId());
+        int userId = authUserId();
+        meal.setUserID(userId);
+        service.update(meal, userId);
     }
 
 

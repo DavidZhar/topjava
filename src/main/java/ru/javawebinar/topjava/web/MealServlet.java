@@ -25,7 +25,7 @@ public class MealServlet extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(MealServlet.class);
 
     @Autowired
-    MealRestController controller;
+    private MealRestController controller;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -46,7 +46,7 @@ public class MealServlet extends HttpServlet {
 
         log.info(meal.isNew() ? "Create {}" : "Update {}", meal);
         if (meal.isNew()) controller.create(meal);
-        else controller.update(meal, meal.getId());
+        else controller.update(meal);
         response.sendRedirect("meals");
     }
 

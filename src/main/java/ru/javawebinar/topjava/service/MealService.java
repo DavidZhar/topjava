@@ -16,23 +16,23 @@ public class MealService {
     @Autowired
     private MealRepository repository;
 
-    public List<Meal> getAll() {
-        return new ArrayList<>(repository.getAll());
+    public List<Meal> getAll(int userId) {
+        return new ArrayList<>(repository.getAll(userId));
     }
 
-    public Meal get(int id) {
-        return Objects.requireNonNull(repository.get(id));
+    public Meal get(int id, int userId) {
+        return Objects.requireNonNull(repository.get(id, userId));
     }
 
-    public Meal create(Meal meal) {
-        return repository.save(meal);
+    public Meal create(Meal meal, int userId) {
+        return repository.save(meal, userId);
     }
 
-    public void delete(int id) {
-        if (!repository.delete(id)) throw new NullPointerException();
+    public void delete(int id, int userId) {
+        if (!repository.delete(id, userId)) throw new NullPointerException();
     }
 
-    public void update(Meal meal) {
-        if (repository.save(meal) == null) throw new NullPointerException();
+    public void update(Meal meal, int userId) {
+        if (repository.save(meal, userId) == null) throw new NullPointerException();
     }
 }

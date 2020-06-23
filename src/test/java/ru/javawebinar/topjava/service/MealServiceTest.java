@@ -19,6 +19,7 @@ import java.util.List;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static ru.javawebinar.topjava.MealTestData.*;
+import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
 import static ru.javawebinar.topjava.UserTestData.USER_ID;
 
 @ContextConfiguration({
@@ -70,6 +71,12 @@ public class MealServiceTest {
     }
 
     @Test
+    public void deletedNotFoundForeignMeal() throws Exception {
+        assertThrows(NotFoundException.class, () -> service.delete(USER_MEAL_ID, ADMIN_ID));
+    }
+
+
+    @Test
     public void get() throws Exception {
         Meal meal = service.get(USER_MEAL_ID, USER_ID);
         assertMatch(meal, USER_MEAL);
@@ -81,10 +88,33 @@ public class MealServiceTest {
     }
 
     @Test
+    public void getNotFoundForeignMeal() throws Exception {
+        assertThrows(NotFoundException.class, () -> service.get(USER_MEAL_ID, ADMIN_ID));
+    }
+
+    @Test
     public void update() throws Exception {
         Meal updated = getUpdated();
         service.update(updated, USER_ID);
         assertMatch(service.get(USER_MEAL_ID, USER_ID), updated);
+    }
+
+    @Test
+    public void updateNotFound() throws Exception {
+        assertThrows(NotFoundException.class, () -> {
+            Meal updated = getUpdated();
+            service.update(updated, USER_ID);
+            assertMatch(service.get(NOT_FOUND, USER_ID), updated);
+        });
+    }
+
+    @Test
+    public void updateNotFoundForeignMeaL() throws Exception {
+        assertThrows(NotFoundException.class, () -> {
+            Meal updated = getUpdated();
+            service.update(updated, USER_ID);
+            assertMatch(service.get(USER_MEAL_ID, ADMIN_ID), updated);
+        });
     }
 
     @Test

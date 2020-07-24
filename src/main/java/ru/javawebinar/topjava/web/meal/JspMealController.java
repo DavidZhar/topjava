@@ -82,9 +82,3 @@ public class JspMealController {
         return Integer.parseInt(paramId);
     }
 }
-
-//1.3 Перенести функциональность MealServlet в JspMealController контроллер (по аналогии с RootController).
-// MealRestController у нас останется, с ним будем работать позже.
-//1.3.1 разнести запросы на update/delete/.. по разным методам (попробуйте вообще без action=).
-// Можно по аналогии с RootController#setUser принимать HttpServletRequest request
-// (аннотации на параметры и адаптеры для LocalDate/Time мы введем позже).

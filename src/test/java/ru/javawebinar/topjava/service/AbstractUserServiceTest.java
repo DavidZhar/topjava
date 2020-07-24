@@ -6,10 +6,12 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
+import org.springframework.test.context.ActiveProfiles;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
@@ -34,32 +36,15 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     @Autowired
     private CacheManager cacheManager;
 
+    @Autowired
     protected JpaUtil jpaUtil;
 
     @Autowired
     private Environment environment;
 
-    private void getJpaUtil(){
-        jpaUtil = null;
-        String[] profiles = environment.getActiveProfiles();
-        for (int i = 0; i < profiles.length; i++) {
-            if (profiles[i].equals("jdbc")) return;
-        }
-//        jpaUtil = new GetJpaUtil().jpaUtil;
-        jpaUtil = new JpaUtil();
-    }
-
-//    @Component
-//    @Profile({"jpa", "datajpa"})
-//    private static class GetJpaUtil{
-//        @Autowired
-//        private JpaUtil jpaUtil;
-//    }
-
     @Before
     public void setUp() throws Exception {
-        getJpaUtil();
-        Assume.assumeTrue(jpaUtil!=null || Arrays.stream(environment.getActiveProfiles()).collect(Collectors.toList()).contains("jdbc"));
+//        Assume.assumeTrue(jpaUtil!=null || Arrays.stream(environment.getActiveProfiles()).collect(Collectors.toList()).contains("jdbc"));
         if (jpaUtil!=null) {
             cacheManager.getCache("users").clear();
             jpaUtil.clear2ndLevelHibernateCache();

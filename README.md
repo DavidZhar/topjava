@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d6de20b4fff8424ba2fb6647f8515db7)](https://app.codacy.com/manual/DavidZhar/topjava?utm_source=github.com&utm_medium=referral&utm_content=DavidZhar/topjava&utm_campaign=Badge_Grade_Settings)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/a2c7be70954d4316815b85fef4a20b43)](https://www.codacy.com/manual/DavidZhar/topjava?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DavidZhar/topjava&amp;utm_campaign=Badge_Grade)
 
 
